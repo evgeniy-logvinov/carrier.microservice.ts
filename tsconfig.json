@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "lib": [
+      "esnext"
+    ],
+    "sourceMap": true,
+    "incremental": true,
+    "outDir": "dist",
+    "strict": true,
+    "declaration": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+  },
+  "compileOnSave": true,
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
