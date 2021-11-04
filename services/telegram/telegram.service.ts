@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require('dotenv').config();
-import { resolve } from 'path';
-import { ServiceBroker } from 'moleculer';
-import { config } from './moleculer.config';
+import { Service } from 'moleculer';
 
-const {
-  SERVICES,
-  NODE_ENV,
-} = process.env;
+export class TelegramService extends Service {
+  constructor(broker) {
+    super(broker);
 
-const broker = new ServiceBroker(config);
+    this.parseServiceSchema({
+      name: 'telegram',
+    });
+  }
 
-broker.loadServices(
-    resolve(__dirname, 'services'),
-    SERVICES
-      ? `*/@(${SERVICES.split(',').map(i => i.trim()).join('|')}).service.js`
-      : '*/*.service.js',
-);
-
-broker.start().then(() => {
-  if (NODE_ENV === 'development')
-    broker.repl();
-});
+  somemethod() {
+    this.broker.emit('user.created', 'user');
+  }
+}

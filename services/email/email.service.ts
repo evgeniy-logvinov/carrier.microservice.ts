@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-require('dotenv').config();
-import { resolve } from 'path';
-import { ServiceBroker } from 'moleculer';
-import { config } from './moleculer.config';
+'use strict';
 
-const {
-  SERVICES,
-  NODE_ENV,
-} = process.env;
-
-const broker = new ServiceBroker(config);
-
-broker.loadServices(
-    resolve(__dirname, 'services'),
-    SERVICES
-      ? `*/@(${SERVICES.split(',').map(i => i.trim()).join('|')}).service.js`
-      : '*/*.service.js',
-);
-
-broker.start().then(() => {
-  if (NODE_ENV === 'development')
-    broker.repl();
-});
+module.exports = {
+  name: 'email',
+  events: {
+    'movie.created': {
+      group: 'other',
+      handler(payload) {
+        console.log('Recieved "movie.created" event in email service with payload: ', payload);
+      }
+    }
+  },
+};
